@@ -14,7 +14,7 @@ function App() {
   const question = `${options[0]} vs ${options[1]}`;
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3001');
+    const socket = new WebSocket('wss://poll-app-backend-zp2c.onrender.com');
     setWs(socket);
 
     socket.onmessage = (event) => {
