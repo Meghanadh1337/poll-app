@@ -82,53 +82,103 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 flex flex-col items-center justify-center p-6 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 text-gray-800 flex flex-col items-center justify-center p-6 font-sans transition-all duration-300 ease-in-out">
       {step === 1 && (
-        <div className="space-y-4 text-center">
-          <h1 className="text-3xl font-bold">Real-Time Poll</h1>
-          <p className="text-gray-600">Create or join a live voting room</p>
-          <div className="flex gap-4 justify-center">
-            <button onClick={() => { setMode('create'); setStep(2); }} className="px-6 py-2 bg-blue-600 text-white rounded-xl">Create Room</button>
-            <button onClick={() => { setMode('join'); setStep(2); }} className="px-6 py-2 bg-gray-300 text-gray-800 rounded-xl">Join Room</button>
+        <div className="space-y-6 text-center animate-fade-in">
+          <h1 className="text-5xl font-extrabold text-purple-700 drop-shadow-md">🎉 Real-Time Poll</h1>
+          <p className="text-xl text-gray-700">Start or join a fun voting room</p>
+          <div className="flex gap-6 justify-center mt-6">
+            <button
+              onClick={() => { setMode('create'); setStep(2); }}
+              className="px-8 py-3 bg-blue-600 text-white text-lg rounded-full shadow-md hover:scale-105 hover:bg-blue-700 transition-transform"
+            >
+              Create Room
+            </button>
+            <button
+              onClick={() => { setMode('join'); setStep(2); }}
+              className="px-8 py-3 bg-green-500 text-white text-lg rounded-full shadow-md hover:scale-105 hover:bg-green-600 transition-transform"
+            >
+              Join Room
+            </button>
           </div>
         </div>
       )}
 
       {step === 2 && (
-        <div className="w-full max-w-sm space-y-4">
-          <button onClick={() => setStep(1)} className="text-sm text-blue-600">← Back</button>
-          <input type="text" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2 border rounded-xl" />
+        <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-xl space-y-6 animate-slide-up">
+          <button onClick={() => setStep(1)} className="text-blue-600 text-sm">← Back</button>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl text-lg"
+          />
 
           {mode === 'create' ? (
             <>
-              <input type="text" placeholder="Option 1" value={options[0]} onChange={(e) => setOptions([e.target.value, options[1]])} className="w-full px-4 py-2 border rounded-xl" />
-              <input type="text" placeholder="Option 2" value={options[1]} onChange={(e) => setOptions([options[0], e.target.value])} className="w-full px-4 py-2 border rounded-xl" />
-              <button onClick={handleCreate} className="w-full px-4 py-2 bg-blue-600 text-white rounded-xl">Start Poll</button>
+              <input
+                type="text"
+                placeholder="Option 1"
+                value={options[0]}
+                onChange={(e) => setOptions([e.target.value, options[1]])}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-lg"
+              />
+              <input
+                type="text"
+                placeholder="Option 2"
+                value={options[1]}
+                onChange={(e) => setOptions([options[0], e.target.value])}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-lg"
+              />
+              <button
+                onClick={handleCreate}
+                className="w-full px-4 py-3 bg-blue-600 text-white text-lg rounded-xl hover:bg-blue-700"
+              >
+                Start Poll
+              </button>
             </>
           ) : (
             <>
-              <input type="text" placeholder="Enter room code" value={inputCode} onChange={(e) => setInputCode(e.target.value)} className="w-full px-4 py-2 border rounded-xl" />
-              <button onClick={handleJoin} className="w-full px-4 py-2 bg-green-600 text-white rounded-xl">Join Poll</button>
+              <input
+                type="text"
+                placeholder="Enter room code"
+                value={inputCode}
+                onChange={(e) => setInputCode(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-lg"
+              />
+              <button
+                onClick={handleJoin}
+                className="w-full px-4 py-3 bg-green-600 text-white text-lg rounded-xl hover:bg-green-700"
+              >
+                Join Poll
+              </button>
             </>
           )}
         </div>
       )}
 
       {step === 3 && (
-        <div className="w-full max-w-lg text-center space-y-6">
-          <h2 className="text-xl font-semibold">Room Code: {roomCode}</h2>
-          <h3 className="text-2xl font-bold">{options[0]} vs {options[1]}</h3>
-          <p className="text-sm text-gray-500">Time remaining: {timer}s</p>
+        <div className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-xl space-y-8 text-center animate-fade-in">
+          <h2 className="text-lg text-gray-500">
+            Room Code: <span className="font-semibold text-gray-800">{roomCode}</span>
+          </h2>
+          <h3 className="text-4xl font-bold text-purple-700">{options[0]} vs {options[1]}</h3>
+          <p className="text-lg text-gray-600">⏱️ Time remaining: {timer}s</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {options.map(option => (
-              <div key={option} className="p-4 border rounded-xl">
-                <button onClick={() => vote(option)} disabled={hasVoted || timer <= 0} className="w-full px-4 py-2 bg-indigo-600 text-white rounded-xl disabled:opacity-50">
+              <div key={option} className="p-6 border border-gray-200 rounded-2xl hover:shadow-lg transition">
+                <button
+                  onClick={() => vote(option)}
+                  disabled={hasVoted || timer <= 0}
+                  className="w-full px-4 py-3 bg-indigo-600 text-white text-xl rounded-xl disabled:opacity-50"
+                >
                   Vote {option} ({votes[option] || 0})
                 </button>
-                <div className="mt-2 text-left text-sm">
-                  <strong>Voters:</strong>
-                  <ul className="list-disc ml-5">
+                <div className="mt-3 text-left text-sm">
+                  <strong className="text-gray-700">Voters:</strong>
+                  <ul className="list-disc ml-6 mt-1 text-gray-600">
                     {(voters[option] || []).map((v, i) => <li key={i}>{v}</li>)}
                   </ul>
                 </div>
